@@ -3,6 +3,10 @@ from tkinter import ttk
 
 from tkinter import messagebox
 
+from PIL import Image, ImageTk
+
+
+
 import mysql.connector as sqltor
 
 con = sqltor.connect(host="localhost", user="root", passwd="123456", database="patient_rec")
@@ -15,10 +19,10 @@ class Patient:
     def __init__(self,root):
         self.root=root
         self.root.title("Patient Record System")
-        self.root.geometry("1540x800+0+0")
+        self.root.geometry("1360x694+0+0")
 
         lbltitle=Label(self.root,bd=20,relief=RIDGE,
-                       text="PATIENT RECORDS",fg="light green",bg="white",font=("times new roman",50,"bold"))
+                       text="➕PATIENT RECORDS",fg="light green",bg="white",font=("times new roman",50,"bold"))
         lbltitle.pack(side=TOP,fill=X)
 
         # ======================================DataFrame========================
@@ -28,10 +32,6 @@ class Patient:
         DataframeLeft=LabelFrame(Dataframe,bd=10,relief=RIDGE,padx=10,
                                  font=("arial",18,"bold"),text="Patient Information", fg="gray" )
         DataframeLeft.place(x=6,y=5,width = 976,height = 460 )
-
-        DataframeRight=LabelFrame(Dataframe,bd=10,relief=RIDGE,padx=10,
-                                 font=("arial",18,"bold"),text="Patient details", fg="gray" )
-        DataframeRight.place(x=987, y=5, width=337, height=460)
 
         # ========================================== buttons =====================================
 
@@ -61,7 +61,6 @@ class Patient:
                                                                                                                                                                                                                                                                                     PatientIDVar,
                                                                                                                                                                                                                                                                                     MobVar,
                                                                                                                                                                                                                                                                                     BloodTypeVar,
-                                                                                                                                                                                                                                                                                    BPVar,
                                                                                                                                                                                                                                                                                     HeightVar,
                                                                                                                                                                                                                                                                                     weightVar,
                                                                                                                                                                                                                                                                                     addressVar,
@@ -76,6 +75,12 @@ class Patient:
             messagebox.showinfo(message="Patient Data Was Recorded Successfully...")
 
         def delRec():
+            PatientIDVar = txtpatientID.get()
+            qry2 = "DELETE FROM records where PatientID = {}".format(PatientIDVar)
+            cursor2 = con.cursor()
+            cursor2.execute(qry2)
+            con.commit()
+
             messagebox.showinfo(message="Patient Data Was Deleted successfully...")
 
         button1 = Button(root,
@@ -166,7 +171,17 @@ class Patient:
         txtaddress=Text(DataframeLeft, height=3, width=29, font=("arial", 11, "bold"))
         txtaddress.place(x=125,y=355)
 
-#================================right side============================================================
+
+
+        #=================================iamage===============================
+
+        img = Image.open("hospitalOrg1.png")
+        img = img.resize((317, 448), Image.ANTIALIAS)
+        self.Photoimg = ImageTk.PhotoImage(img)
+        lblimg = Label(self.root, image=self.Photoimg, bd=4, relief=RIDGE)
+        lblimg.place(x=1013, y=160, width=317, height=448)
+
+        #================================right side============================================================
         #empty column
         empty = Label(DataframeLeft,text="                      ",font=("arial",12,"bold"),padx= 2,pady=6)
         empty.grid(row=1, column=3, sticky=W)
@@ -194,10 +209,6 @@ class Patient:
         txtPrescribed_Medication=Text(DataframeLeft, height=3, width=36, font=("arial", 11, "bold"))
         txtPrescribed_Medication.place(x=640,y=355)
 
-        '''WindowPic = PhotoImage(file="hospitalOrg1.png")
-        WindowImg = Label(Dataframe, image=WindowPic)
-        WindowImg.place(x=0, y=0)
-        WindowImg.image = WindowPic'''
 
 root=Tk()
 ob=Patient(root)
