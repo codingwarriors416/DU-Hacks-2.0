@@ -1,11 +1,7 @@
 from tkinter import*
 from tkinter import ttk
-
 from tkinter import messagebox
-
 from PIL import Image, ImageTk
-
-
 
 import mysql.connector as sqltor
 
@@ -54,20 +50,21 @@ class Patient:
             diagnosisVar = txtDiagnosis.get(1.0, END)
             prevMedVar = txtprevious_medication.get(1.0, END)
             prescribedMedVar = txtPrescribed_Medication.get(1.0, END)
-            qry1= "INSERT INTO records(PatientName,Age,DOB,Gender,PatientID,Mobile,BloodType,BP,Height,Weight,Address,PatientComplaint,PatientDiagnosis,PreviousMedication,PrescribedMedication)values('{}',{},'{}','{}','{}',{},'{}','{}',{},{},'{}','{}','{}','{}','{}')".format(patientNameVar,
-                                                                                                                                                                                                                                                                                    ageVar,
-                                                                                                                                                                                                                                                                                    DOBVar,
-                                                                                                                                                                                                                                                                                    genderVar,
-                                                                                                                                                                                                                                                                                    PatientIDVar,
-                                                                                                                                                                                                                                                                                    MobVar,
-                                                                                                                                                                                                                                                                                    BloodTypeVar,
-                                                                                                                                                                                                                                                                                    HeightVar,
-                                                                                                                                                                                                                                                                                    weightVar,
-                                                                                                                                                                                                                                                                                    addressVar,
-                                                                                                                                                                                                                                                                                    complaintVar,
-                                                                                                                                                                                                                                                                                    diagnosisVar,
-                                                                                                                                                                                                                                                                                    prevMedVar,
-                                                                                                                                                                                                                                                                                    prescribedMedVar)
+            qry1="INSERT INTO records(PatientName,Age,DOB,Gender,PatientID,Mobile,BloodType,BP,Height,Weight,Address,PatientComplaint,PatientDiagnosis,PreviousMedication,PrescribedMedication)values('{}',{},'{}','{}','{}',{},'{}','{}',{},{},'{}','{}','{}','{}','{}')".format(patientNameVar,
+                                                                                                                                                                                                                                                                                  ageVar,
+                                                                                                                                                                                                                                                                                  DOBVar,
+                                                                                                                                                                                                                                                                                  genderVar,
+                                                                                                                                                                                                                                                                                  PatientIDVar,
+                                                                                                                                                                                                                                                                                  MobVar,
+                                                                                                                                                                                                                                                                                  BloodTypeVar,
+                                                                                                                                                                                                                                                                                  BPVar,
+                                                                                                                                                                                                                                                                                  HeightVar,
+                                                                                                                                                                                                                                                                                  weightVar,
+                                                                                                                                                                                                                                                                                  addressVar,
+                                                                                                                                                                                                                                                                                  complaintVar,
+                                                                                                                                                                                                                                                                                  diagnosisVar,
+                                                                                                                                                                                                                                                                                  prevMedVar,
+                                                                                                                                                                                                                                                                                  prescribedMedVar)
             cursor1 = con.cursor()
             cursor1.execute(qry1)
             con.commit()
